@@ -59,6 +59,7 @@ public class Jogo implements Serializable {
 
     public void setTitulo(String titulo) {
         this.titulo = titulo;
+
     }
 
     public String getDesenvolvedor() {

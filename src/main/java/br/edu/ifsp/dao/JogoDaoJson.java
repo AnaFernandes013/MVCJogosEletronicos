@@ -61,7 +61,73 @@ public class JogoDaoJson implements JogoDao {
         return lista;
 
     }
-    // editar e excluir aquii (implementação)
+    @Override
+    public boolean editar(int id,
+                          String titulo,
+                          String desenvolvedor,
+                          String anoLancamento,
+                          String genero,
+                          String sinopse,
+                          String idioma,
+                          String plataforma,
+                          String classificacao,
+                          String capa) {
+
+        List<Jogo> lista = listar();
+
+        boolean encontrado = false;
+
+        for (Jogo j : lista) {
+
+            if (j.getId() == id) {
+
+                j.setTitulo(titulo);
+                j.setDesenvolvedor(desenvolvedor);
+                j.setAnoLancamento(anoLancamento);
+                j.setGenero(genero);
+                j.setSinopse(sinopse);
+                j.setIdioma(idioma);
+                j.setPlataforma(plataforma);
+                j.setClassIndicativa(classificacao);
+
+                if (capa != null && !capa.isBlank()) {
+                    j.setCapa(capa);
+                }
+
+                encontrado = true;
+                break;
+            }
+        }
+
+        if (!encontrado) {
+            return false;
+        }
+
+        try {
+
+            FileWriter fw = new FileWriter(path, false); // apaga tudo
+            PrintWriter pw = new PrintWriter(fw);
+
+            Gson gson = new Gson();
+
+            for (Jogo j : lista) {
+                pw.println(gson.toJson(j));
+            }
+
+            pw.close();
+            fw.close();
+
+        } catch (IOException e) {
+            throw new RuntimeException(e);
+        }
+
+        return true;
+    }
+
+    @Override
+    public Jogo excluir(int id) {
+        return null;
+    }
 
     private int ultimoId(){
         List<Jogo> lista = this.listar();
