@@ -8,5 +8,6 @@ public interface JogoDao {
 
     List<Jogo> listar();
 
-    // editar e excluir aquii "inicialização"
+    boolean editar(int id, String titulo, String desenvolvedor, String anoLancamento, String genero, String sinopse, String idioma, String plataforma, String classificacao, String nomeArquivo);
+    Jogo excluir(int id);
 }
