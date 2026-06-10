@@ -50,7 +50,7 @@
                             <option value="estrategia" ${jogo.genero == 'estrategia' ? 'selected' : ''}>Estratégia</option>
                             <option value="simulacao" ${jogo.genero == 'simulacao' ? 'selected' : ''}>Simulação</option>
                             <option value="esporte" ${jogo.genero == 'esporte' ? 'selected' : ''} >Esportes</option>
-                            <option value="puzzle" ${jogo.genero == 'puzzle' ? 'selected' : ''}>Puzzle</option>
+                            <option value="puzzle" ${jSogo.genero == 'puzzle' ? 'selected' : ''}>Puzzle</option>
                         </select>
 
                         <textarea name="novoSinopse" class="form-control mb-2" placeholder="Sinopse">${jogo.getSinopse()}</textarea>

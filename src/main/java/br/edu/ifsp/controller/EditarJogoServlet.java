@@ -18,24 +18,37 @@ import java.util.Map;
 @WebServlet(name = "EditarJogoServlet", value = "/editar_jogo")
 public class EditarJogoServlet extends HttpServlet {
     @Override
-    protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-        // pega o id do botao;
-        String id = request.getParameter("id");
+    protected void doGet(HttpServletRequest request, HttpServletResponse response) throws IOException {
 
-        // pega a lista e verifica se o id se encontra nela.
+        response.setHeader("Access-Control-Allow-Origin", "*");
+        response.setHeader("Access-Control-Allow-Methods", "*");
+        response.setHeader("Access-Control-Max-Age", "3600");
+        response.setHeader("Access-Control-Allow-Headers", "*");
+        response.setHeader("Access-Control-Allow-Credentials", "true");
+
+        String id = request.getParameter("id");
         JogoDao dao = (JogoDao) getServletContext().getAttribute("dao");
         List<Jogo> lista = dao.listar();
+        Jogo encontrado = null;
+
+        System.out.println("ID recebido: " + id);
 
         for (Jogo j : lista) {
+            System.out.println("Jogo: " + j.getId());
+
             if (String.valueOf(j.getId()).equals(id)) {
-                request.setAttribute("jogo", j);
+                encontrado = j;
                 break;
             }
         }
+        Gson gson = new Gson();
 
-        RequestDispatcher rd = request.getRequestDispatcher("/editar_jogo.jsp");
-        rd.forward(request, response);
+        response.setContentType("application/json");
+        response.setCharacterEncoding("UTF-8");
 
+        response.getWriter().print(
+                gson.toJson(encontrado)
+        );
     }
 
     @Override
@@ -48,8 +61,12 @@ public class EditarJogoServlet extends HttpServlet {
     }
 
     @Override
-    protected void doPost(HttpServletRequest request, HttpServletResponse response)
-            throws ServletException, IOException {
+    protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+        response.setHeader("Access-Control-Allow-Origin", "*");
+        response.setHeader("Access-Control-Allow-Methods", "*");
+        response.setHeader("Access-Control-Max-Age", "3600");
+        response.setHeader("Access-Control-Allow-Headers", "*");
+        response.setHeader("Access-Control-Allow-Credentials", "true");
 
         Gson gson = new Gson();
 

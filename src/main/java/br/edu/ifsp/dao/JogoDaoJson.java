@@ -104,7 +104,7 @@ public class JogoDaoJson implements JogoDao {
         }
 
         try {
-
+            checkFile(path);
             FileWriter fw = new FileWriter(path, false); // apaga tudo
             PrintWriter pw = new PrintWriter(fw);
 
@@ -125,8 +125,44 @@ public class JogoDaoJson implements JogoDao {
     }
 
     @Override
-    public Jogo excluir(int id) {
-        return null;
+    public boolean excluir(int id) {
+
+        List<Jogo> lista = listar();
+
+        boolean removido = false;
+
+        for (int i = 0; i < lista.size(); i++) {
+
+            if (lista.get(i).getId() == id) {
+                lista.remove(i);
+                removido = true;
+                break;
+            }
+        }
+
+        if (!removido) {
+            return false;
+        }
+
+        try {
+            checkFile(path);
+            FileWriter fw = new FileWriter(path, false);
+            PrintWriter pw = new PrintWriter(fw);
+
+            Gson gson = new Gson();
+
+            for (Jogo j : lista) {
+                pw.println(gson.toJson(j));
+            }
+
+            pw.close();
+            fw.close();
+
+        } catch (IOException e) {
+            throw new RuntimeException(e);
+        }
+
+        return true;
     }
 
     private int ultimoId(){
