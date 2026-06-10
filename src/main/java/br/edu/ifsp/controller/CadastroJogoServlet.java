@@ -24,7 +24,7 @@ public class CadastroJogoServlet extends HttpServlet {
 
     @Override
     protected void doOptions(HttpServletRequest req, HttpServletResponse response) throws ServletException, IOException {
-        super.doOptions(req, response);
+        //
         response.setHeader("Access-Control-Allow-Origin", "*");
         response.setHeader("Access-Control-Allow-Headers", "Content-Type");
         response.setHeader("Access-Control-Allow-Methods", "POST, GET, OPTIONS, DELETE");
@@ -35,7 +35,7 @@ public class CadastroJogoServlet extends HttpServlet {
     protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         response.setHeader("Access-Control-Allow-Origin", "*");
         response.setHeader("Access-Control-Allow-Methods", "POST, GET, OPTIONS, DELETE");
-        response.setHeader("Access-Control-Allow-Headers", "Content-Type");// code
+        response.setHeader("Access-Control-Allow-Headers", "Content-Type");
 
         String contentType = request.getContentType();
         String titulo = null;
