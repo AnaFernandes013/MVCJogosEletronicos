@@ -23,7 +23,7 @@ public class UsuarioDaoJson implements UsuarioDao {
             checkFile(path);
             FileWriter fw = new FileWriter(path,true);
             PrintWriter pw = new PrintWriter(fw);
-            u = new Usuario(usuario, email, senha, proxId);
+            u = new Usuario(usuario, email, senha, this.getProxId());
             Gson gson = new Gson();
             System.out.println(path);
             System.out.println(gson.toJson(u));

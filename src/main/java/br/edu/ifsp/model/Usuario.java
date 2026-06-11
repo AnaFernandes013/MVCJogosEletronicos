@@ -7,11 +7,18 @@ public class Usuario implements Serializable {
     private String usuario; // identificador
     private String email;
     private String senha;
+    private int tipo;
+    // ter 3 usuarios
+    // 1 - adm
+    // 2 - user logado
+    // 3 - usur nao logado
+
     private static int id_atual = 0;
     private int id;
 
-    public Usuario(String texto, Usuario usuario, Jogo jogo, int proxId){
+    public Usuario(String texto, Usuario usuario, Jogo jogo, int proxId, int tipo){
         this.id = ++id_atual;
+        tipo = 2;
     }
 
     public int getId() {
