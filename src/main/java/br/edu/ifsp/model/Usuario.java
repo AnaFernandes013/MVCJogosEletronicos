@@ -40,7 +40,7 @@ public class Usuario implements Serializable {
         return usuario;
     }
 
-
+    public int getTipo() { return tipo;}
 
     public void setUsuario(String usuario) {
         this.usuario = usuario;

@@ -82,4 +82,81 @@ public class UsuarioDaoJson implements UsuarioDao {
         }
     }
 
+    @Override
+    public Usuario buscarPorId(int id) {
+        List<Usuario> lista = listar();
+        for (Usuario u : lista) {
+            if (u.getId() == id) {
+                return u;
+            }
+        }
+        return null;
+    }
+
+    @Override
+    public boolean editar(int id, String usuario, String email, String senha) {
+        List<Usuario> lista = listar();
+        boolean encontrado = false;
+
+        for (Usuario u : lista) {
+            if (u.getId() == id) {
+                u.setUsuario(usuario);
+                u.setEmail(email);
+                if (senha != null && !senha.isBlank()) {
+                    u.setSenha(senha);
+                }
+                encontrado = true;
+                break;
+            }
+        }
+
+        if (!encontrado) return false;
+
+        try {
+            FileWriter fw = new FileWriter(path, false);
+            PrintWriter pw = new PrintWriter(fw);
+            Gson gson = new Gson();
+            for (Usuario u : lista) {
+                pw.println(gson.toJson(u));
+            }
+            pw.close();
+            fw.close();
+        } catch (IOException e) {
+            throw new RuntimeException(e);
+        }
+
+        return true;
+    }
+
+    @Override
+    public boolean excluir(int id) {
+        List<Usuario> lista = listar();
+        boolean removido = false;
+
+        for (int i = 0; i < lista.size(); i++) {
+            if (lista.get(i).getId() == id) {
+                lista.remove(i);
+                removido = true;
+                break;
+            }
+        }
+
+        if (!removido) return false;
+
+        try {
+            FileWriter fw = new FileWriter(path, false);
+            PrintWriter pw = new PrintWriter(fw);
+            Gson gson = new Gson();
+            for (Usuario u : lista) {
+                pw.println(gson.toJson(u));
+            }
+            pw.close();
+            fw.close();
+        } catch (IOException e) {
+            throw new RuntimeException(e);
+        }
+
+        return true;
+    }
+
 }

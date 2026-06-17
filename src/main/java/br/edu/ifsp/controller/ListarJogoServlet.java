@@ -12,7 +12,7 @@ import java.io.IOException;
 import java.io.PrintWriter;
 import java.util.List;
 @MultipartConfig
-@WebServlet(name = "ListarJogoServlet", value = "/ver_jogo")
+@WebServlet(name = "ListarJogoServlet", value = "/ver_jogo", loadOnStartup = 1)
 public class ListarJogoServlet extends HttpServlet {
 
     private final Gson gson = new Gson();
@@ -24,7 +24,8 @@ public class ListarJogoServlet extends HttpServlet {
 
         response.setContentType("application/json");
         response.setCharacterEncoding("UTF-8");
-        response.addHeader("Access-Control-Allow-Origin", "*");
+        response.addHeader("Access-Control-Allow-Origin", request.getHeader("Origin"));
+        response.addHeader("Access-Control-Allow-Credentials", "true");
         PrintWriter pw = response.getWriter();
         pw.print(gson.toJson(lista));
 

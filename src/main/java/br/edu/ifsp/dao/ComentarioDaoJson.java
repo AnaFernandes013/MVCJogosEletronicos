@@ -19,14 +19,14 @@ public class ComentarioDaoJson implements ComentarioDao {
     }
 
     @Override
-    public Comentario inserir(String texto, Usuario usuario, Jogo jogo, int proxId) {
+    public Comentario inserir(int idJogo, String texto, String nomeUsuario, String data, int idUsuario){
         Comentario c = null;
 
         try {
             checkFile(path);
             FileWriter fw = new FileWriter(path,true);
             PrintWriter pw = new PrintWriter(fw);
-            c = new Comentario(texto, usuario, jogo, proxId);
+            c = new Comentario(getProxId(), idJogo, texto, nomeUsuario, data, idUsuario);
             Gson gson = new Gson();
             System.out.println(path);
             System.out.println(gson.toJson(c));
@@ -84,5 +84,67 @@ public class ComentarioDaoJson implements ComentarioDao {
                 throw new RuntimeException(e);
             }
         }
+    }
+
+    @Override
+    public boolean editar(int id, String texto) {
+        List<Comentario> lista = listar();
+        boolean encontrado = false;
+
+        for (Comentario c : lista) {
+            if (c.getId() == id) {
+                c.setTexto(texto);
+                encontrado = true;
+                break;
+            }
+        }
+
+        if (!encontrado) return false;
+
+        try {
+            FileWriter fw = new FileWriter(path, false);
+            PrintWriter pw = new PrintWriter(fw);
+            Gson gson = new Gson();
+            for (Comentario c : lista) {
+                pw.println(gson.toJson(c));
+            }
+            pw.close();
+            fw.close();
+        } catch (IOException e) {
+            throw new RuntimeException(e);
+        }
+
+        return true;
+    }
+
+    @Override
+    public boolean excluir(int id) {
+        List<Comentario> lista = listar();
+        boolean removido = false;
+
+        for (int i = 0; i < lista.size(); i++) {
+            if (lista.get(i).getId() == id) {
+                lista.remove(i);
+                removido = true;
+                break;
+            }
+        }
+
+        if (!removido) return false;
+
+        try {
+            FileWriter fw = new FileWriter(path, false);
+            PrintWriter pw = new PrintWriter(fw);
+            Gson gson = new Gson();
+            for (Comentario c : lista) {
+                pw.println(gson.toJson(c));
+            }
+            pw.close();
+            fw.close();
+        } catch (IOException e) {
+            throw new RuntimeException(e);
+        }
+
+        return true;
     }
 }

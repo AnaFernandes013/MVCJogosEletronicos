@@ -19,7 +19,7 @@ import java.util.List;
 import java.util.Map;
 
 @MultipartConfig
-@WebServlet(name = "CadastroUserServlet", value = "/cadastrar_usuario")
+@WebServlet(name = "CadastroUserServlet", value = "/cadastrar_usuario", loadOnStartup = 2)
 public class CadastroUserServlet extends HttpServlet {
     private final Gson gson = new Gson();
     @Override
@@ -88,7 +88,7 @@ public class CadastroUserServlet extends HttpServlet {
             mensagem.put("mensagem", "Houve um problema");
             mensagem.put("problemas", listaMensagens);
         }else{
-            UsuarioDao dao = (UsuarioDao) getServletContext().getAttribute("dao");
+            UsuarioDao dao = (UsuarioDao) getServletContext().getAttribute("usuarioDao");
             if(dao == null){
                 throw new RuntimeException("DAO nao encontrado no ServletContext");
             }
@@ -109,6 +109,6 @@ public class CadastroUserServlet extends HttpServlet {
     public void init() throws ServletException {
         super.init();
         UsuarioDao dao = new UsuarioDaoJson(getServletContext().getRealPath("/"));
-        getServletContext().setAttribute("dao", dao);
+        getServletContext().setAttribute("usuarioDao", dao);
     }
 }

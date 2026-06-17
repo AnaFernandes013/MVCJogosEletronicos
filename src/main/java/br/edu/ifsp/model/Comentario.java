@@ -1,36 +1,28 @@
 package br.edu.ifsp.model;
 
-import java.io.Serializable;
+public class Comentario {
 
-public class Comentario implements Serializable {
-
-    private static int id_atual = 0;
     private int id;
+    private int idJogo;
     private String texto;
+    private String nomeUsuario;
+    private String data;
+    private int idUsuario;
 
-    private Usuario usuario;
-    private Jogo jogo;
-
-    public Comentario(String texto, Usuario usuario, Jogo jogo, int id) {
-        this.id = ++id_atual;
+    public Comentario(int id, int idJogo, String texto, String nomeUsuario, String data, int idUsuario) {
+        this.id = id;
+        this.idJogo = idJogo;
         this.texto = texto;
-        this.usuario = usuario;
-        this.jogo = jogo;
+        this.nomeUsuario = nomeUsuario;
+        this.data = data;
+        this.idUsuario = idUsuario;
     }
 
-    public int getId() {
-        return id;
-    }
-
-    public String getTexto() {
-        return texto;
-    }
-
-    public Usuario getUsuario() {
-        return usuario;
-    }
-
-    public Jogo getJogo() {
-        return jogo;
-    }
+    public int getId() { return id; }
+    public int getIdJogo() { return idJogo; }
+    public String getTexto() { return texto; }
+    public String getNomeUsuario() { return nomeUsuario; }
+    public String getData() { return data; }
+    public int getIdUsuario() { return idUsuario; }
+    public void setTexto(String texto) {this.texto = texto;}
 }

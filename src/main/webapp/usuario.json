@@ -1,5 +1,5 @@
-{"usuario":"ana","email":"fer@ana.com","senha":"123","id":1}
-{"usuario":"jussara","email":"juu@gmail.com","senha":"234","id":2}
-{"usuario":"TESTE1","email":"TEST@TESTE.COM","senha":"123","id":3}
-{"usuario":"teste","email":"sss@sss","senha":"123","id":4}
-{"usuario":"aa","email":"aa@sa","senha":"123","id":5}
+{"usuario":"ana luiza","email":"luiza@ana.com","senha":"123","tipo":1,"id":1}
+{"usuario":"jussara","email":"juu@gmail.com","senha":"234","tipo":2,"id":2}
+{"usuario":"TESTE1","email":"TEST@TESTE.COM","senha":"123","tipo":2,"id":3}
+{"usuario":"Sss","email":"sss@sss","senha":"456","tipo":2,"id":4}
+{"usuario":"aa","email":"aa@sa","senha":"123","tipo":2,"id":5}
